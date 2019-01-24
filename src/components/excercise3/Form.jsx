@@ -24,10 +24,11 @@ export default class Form extends Component {
     };
 
     onSubmit = async () => {
+        this.setState({ isSubmitEnabled: false });
         const { full_name, company, email, phone } = this.state;
         const data = { full_name, company, email, phone };
         const response = await postForm(data);
-        this.setState({ response: JSON.stringify(response) });
+        this.setState({ response: JSON.stringify(response), isSubmitEnabled: true });
     };
     render() {
         return (
@@ -92,4 +93,7 @@ const SubmitButton = styled.button`
     background-color: ${({ theme: { editColor } }) => editColor};
     color: #fff;
     font-weight: bold;
+    :disabled {
+        background-color: ${({ theme: { defaultColor } }) => defaultColor};
+    }
 `;
